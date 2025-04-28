@@ -1,0 +1,22 @@
+Reflective section 
+
+1. A breakdown of how your script handles arguments and options:
+The script uses a while loop to process all the input arguments, if the argument is -n, -v, -vn, it updates the variables `show_line_numbers` and 
+`invert_match`, any other argument is treated as the search string or the file name, when writhing the arguments, the script builds a grep command based 
+on the options: it starts with grep -i for case-insensitive search, adds -n if show_line_numbers is 1, and adds -v if invert_match is 1 and it executes
+the grep command with the search string and file name.
+
+2. If you were to support regex or -l/-c options, how would your structure change?
+- Supporting regex:
+To support regex, I would replace grep -i with grep -E to allow the search string to be a regular expression. For example, patterns like hello or 
+hello.*world would work. I would need to modify the script to handle regex patterns correctly without breaking the current functionality.
+- Supporting -l (show only file names):
+I would add a new option in the case statement to handle -l and use grep -l. If multiple files are given, I would modify the script to accept a list of 
+files instead of just one.
+- Supporting -c (count matching lines):
+I would add a new option in the case statement for -c and use grep -c to print the number of matching lines instead of the lines themselves.
+
+3. What part of the script was hardest to implement and why?
+The hardest part was handling the options -n, -v and when they are together as -vn. It was challenging forme to figure out how to pass them correctly and 
+adjust the grep command based on the options. I used the variables show_line_numbers and invert_match to simplify the logic, but it required some thinking
+to ensure all cases like -n, -v, -vn work correctly.
